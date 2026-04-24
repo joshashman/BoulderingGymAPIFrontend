@@ -31,16 +31,19 @@ function LoginPage() {
     const response = await login(formData)
     const decoded = jwtDecode(response.data.token) // Decode JWT to extract user info including role
 
+    // Check if Admin role exists in the roles array, otherwise use first role
+    const roles = decoded['http://schemas.microsoft.com/ws/2008/06/identity/claims/role']
+    const roleArray = Array.isArray(roles) ? roles : [roles]
+    const role = roleArray.includes('Admin') ? 'Admin' : roleArray[0]
+
     dispatch(loginSuccess({
-      token: response.data.token,
-      user: {
-        id: decoded.sub,
-        email: decoded.email,
-        role: Array.isArray(decoded['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'])
-          ? decoded['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'][0]
-          : decoded['http://schemas.microsoft.com/ws/2008/06/identity/claims/role']
-      }
-    }))
+    token: response.data.token,
+    user: {
+      id: decoded.sub,
+      email: decoded.email,
+      role: role  
+    }
+}))
     navigate('/dashboard')
   } catch (err) {
     setError(err.response?.data?.message || 'Invalid email or password')
