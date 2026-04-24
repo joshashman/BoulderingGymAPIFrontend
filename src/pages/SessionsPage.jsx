@@ -13,7 +13,6 @@ function SessionsPage() {
 
   const [showCreateModal, setShowCreateModal] = useState(false)
   const [createForm, setCreateForm] = useState({
-    instructorId: '',
     maxCapacity: '',
     startTime: '',
     endTime: '',
@@ -40,7 +39,7 @@ function SessionsPage() {
       const res = await createSession(createForm)
       setSessions([...sessions, res.data])
       setShowCreateModal(false)
-      setCreateForm({ instructorId: '', maxCapacity: '', startTime: '', endTime: '', description: '' })
+      setCreateForm({maxCapacity: '', startTime: '', endTime: '', description: '' })
     } catch (err) {
       setError('Failed to create session')
     }
@@ -120,21 +119,13 @@ function SessionsPage() {
               />
             </Form.Group>
             <Form.Group className="mb-3">
-              <Form.Label>Instructor ID</Form.Label>
-              <Form.Control
-                type="number"
-                value={createForm.instructorId}
-                onChange={(e) => setCreateForm({ ...createForm, instructorId: e.target.value })}
-              />
-            </Form.Group>
-            <Form.Group className="mb-3">
               <Form.Label>Max Capacity</Form.Label>
               <Form.Control
                 type="number"
                 value={createForm.maxCapacity}
                 onChange={(e) => setCreateForm({ ...createForm, maxCapacity: e.target.value })}
               />
-            </Form.Group>
+            </Form.Group>            
             <Form.Group className="mb-3">
               <Form.Label>Start Time</Form.Label>
               <Form.Control

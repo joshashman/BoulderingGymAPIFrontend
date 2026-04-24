@@ -16,7 +16,7 @@ function ClimbingRoutesPage() {
   // Create route modal
   const [showCreateModal, setShowCreateModal] = useState(false)
   const [createForm, setCreateForm] = useState({
-    location: '', difficulty: '', setByStaffId: '', dateSet: '', stripDate: ''
+    location: '', difficulty: '', dateSet: '', stripDate: ''
   })
 
   // Log attempt modal
@@ -99,7 +99,7 @@ function ClimbingRoutesPage() {
       const res = await createRoute(createForm)
       setRoutes([...routes, res.data])
       setShowCreateModal(false)
-      setCreateForm({ location: '', difficulty: '', setByStaffId: '', dateSet: '', stripDate: '' })
+      setCreateForm({ location: '', difficulty: '', dateSet: '', stripDate: '' })
     } catch (err) {
       setError('Failed to create route')
     }
@@ -221,14 +221,6 @@ function ClimbingRoutesPage() {
                 <option value="Medium">Medium</option>
                 <option value="Hard">Hard</option>
               </Form.Select>
-            </Form.Group>
-            <Form.Group className="mb-3">
-              <Form.Label>Set By Staff ID</Form.Label>
-              <Form.Control
-                type="number"
-                value={createForm.setByStaffId}
-                onChange={(e) => setCreateForm({ ...createForm, setByStaffId: e.target.value })}
-              />
             </Form.Group>
             <Form.Group className="mb-3">
               <Form.Label>Date Set</Form.Label>
