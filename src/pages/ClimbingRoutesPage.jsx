@@ -96,7 +96,11 @@ function ClimbingRoutesPage() {
 
   const handleCreate = async () => {
     try {
-      const res = await createRoute(createForm)
+      const res = await createRoute({
+      ...createForm,
+      startTime: new Date(createForm.startTime).toISOString(),
+      endTime: new Date(createForm.endTime).toISOString()
+    })
       setRoutes([...routes, res.data])
       setShowCreateModal(false)
       setCreateForm({ location: '', difficulty: '', dateSet: '', stripDate: '' })

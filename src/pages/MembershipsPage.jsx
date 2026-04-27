@@ -35,7 +35,11 @@ function MembershipsPage() {
 
   const handleCreate = async () => {
     try {
-      const res = await createMembership(createForm)
+      const res = await createMembership({
+      ...createForm,
+      startTime: new Date(createForm.startTime).toISOString(),
+      endTime: new Date(createForm.endTime).toISOString()
+      })
       setMemberships([...memberships, res.data])
       setShowCreateModal(false)
       setCreateForm({ userId: '', type: '', startDate: '', expiryDate: '' })

@@ -36,7 +36,12 @@ function SessionsPage() {
 
   const handleCreate = async () => {
     try {
-      const res = await createSession(createForm)
+      const res = await createSession({
+      ...createForm,
+      maxCapacity: parseInt(createForm.maxCapacity),
+      startTime: new Date(createForm.startTime).toISOString(),
+      endTime: new Date(createForm.endTime).toISOString()
+      })
       setSessions([...sessions, res.data])
       setShowCreateModal(false)
       setCreateForm({maxCapacity: '', startTime: '', endTime: '', description: '' })
